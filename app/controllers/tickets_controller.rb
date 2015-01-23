@@ -1,4 +1,16 @@
 class TicketsController < ApplicationController
+  # GET /players/tickets?player_id=[PLAYER_ID]&api_token=[API_TOKEN]
+  def index
+    tickets = Ticket.all
+    render json: tickets, except: [:created_at, :updated_at]
+  end
+
+  # GET /players/tickets?player_id=[PLAYER_ID]&api_token=[API_TOKEN]
+  def show
+    tickets = Ticket.where(week_number: params[:week_number])
+    render json: tickets, except: [:created_at, :updated_at]
+  end
+
   # POST /tickets/new
   def create
     ticket = Ticket.new(ticket_params)

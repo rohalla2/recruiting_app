@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   delete 'logout' => 'sessions#destroy'
 
   get '/players/tickets' => 'tickets#index'
+  get '/players/tickets/:week_number' => 'tickets#show'
   get "/players/:search_id/tickets" => 'tickets#show'
   resources :players, only: [:create]
   
