@@ -1,5 +1,6 @@
 class Player < ActiveRecord::Base
   has_secure_password
+  has_many :tickets
 
   validates :email, uniqueness: true
   validates_format_of :email,:with => /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
