@@ -1,5 +1,7 @@
 class Ticket < ActiveRecord::Base
   belongs_to :player
+  belongs_to :drawing, foreign_key: :week_number, primary_key: :week_number
+
   before_save :validate_player
   before_save :calculate_total
   validates_presence_of :number_of_tickets, :week_number
@@ -21,5 +23,5 @@ class Ticket < ActiveRecord::Base
 
     json.to_json
   end
-  
+
 end

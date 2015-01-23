@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  week_number: 1
+  player_chosen_id: 
+  player_score: 1
+  strike: false
+
+two:
+  week_number: 1
+  player_chosen_id: 
+  player_score: 1
+  strike: false
