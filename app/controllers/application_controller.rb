@@ -7,19 +7,19 @@ class ApplicationController < ActionController::Base
 
   protected
     def find_player_from_token
-      player = Player.find_by(api_token: params[:api_token])
+      player = Player.find_by(api_token: params[:api_token], id: params[:player_id])
       if player
         @player = player
       else
-        render json: {message: 'Could not find that user!'}
+        render json: {message: 'Invalid Token or ID!'}
       end 
     end
 
-    def authorize
-      unless Player.find_by(id: session[:player_id])
-        redirect_to root_url, notice: "You need to log in to access this feature!"
-      end
-    end
+    # def authorize
+    #   unless Player.find_by(id: session[:player_id])
+    #     redirect_to root_url, notice: "You need to log in to access this feature!"
+    #   end
+    # end
 
 
 

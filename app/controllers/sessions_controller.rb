@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  skip_before_action :find_player_by_token, only: [:create]
+  skip_before_action :find_player_from_token, only: [:create]
   
   def create
     email = params[:email].downcase
@@ -9,12 +9,10 @@ class SessionsController < ApplicationController
       token = SecureRandom.hex
       player.api_token = token
       player.save!
-      render json: {notice: 'Logged in!'}
+      render json: player.render_json
     else
-      render json: {error: 'Could not find that user!'}
+      render json: {error: 'Invalid email or password!'}
     end
-
-
   end
 
   def destroy
