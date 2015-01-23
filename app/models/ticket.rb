@@ -3,12 +3,11 @@ class Ticket < ActiveRecord::Base
   belongs_to :drawing, foreign_key: :week_number, primary_key: :week_number
 
   before_save :validate_player
-  before_save :calculate_total
-  validates_presence_of :number_of_tickets, :week_number
+  before_save :add_price
+  validates_presence_of :week_number, :player_id
   
-  def calculate_total 
+  def add_price
     self.price = 1.00
-    self.total_cost = self.price * self.number_of_tickets
   end
 
   def validate_player

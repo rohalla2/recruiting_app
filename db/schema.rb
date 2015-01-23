@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150123203231) do
+ActiveRecord::Schema.define(version: 20150123214432) do
 
   create_table "drawings", force: :cascade do |t|
     t.integer  "week_number"
@@ -39,10 +39,8 @@ ActiveRecord::Schema.define(version: 20150123203231) do
     t.float    "price"
     t.integer  "week_number"
     t.integer  "player_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-    t.integer  "number_of_tickets"
-    t.float    "total_cost"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   add_index "tickets", ["player_id"], name: "index_tickets_on_player_id"
