@@ -13,4 +13,8 @@ class Player < ActiveRecord::Base
    # json['todos'] = json['todos'].map { |todo| todo['id'] }
     json.to_json
   end
+
+  def drawings_won
+    drawings = Drawing.find_by(winner_id: self.id)
+  end
 end

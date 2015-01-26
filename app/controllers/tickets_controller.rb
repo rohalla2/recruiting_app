@@ -32,6 +32,11 @@ class TicketsController < ApplicationController
   def create
     ticket = Ticket.new(ticket_params)
     if ticket.save
+      drawing = Drawing.find_by(week_number: ticket.week_number)
+      if drawing.nil?
+        drawing = Drawing.new(week_number: ticket.week_number)
+        drawing.save!
+      end
       render json: ticket.render_json
     else
       render json: ticket.errors, status: :unprocessable_entity
