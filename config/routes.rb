@@ -11,6 +11,8 @@ Rails.application.routes.draw do
 
   get '/drawings/:week_number/players' => 'drawings#show'
   post '/drawings/:week_number/select' => 'drawings#select_winner'
+  post '/drawings/:week_number/score' => 'drawings#record_results'
+
   resources :players, only: [:create]
   
   post '/tickets/new' => 'tickets#create'

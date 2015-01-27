@@ -18,4 +18,11 @@ class DrawingsController < ApplicationController
     drawing.select_winner
     render json: {winner: drawing}, except: [:password_digest, :created_at, :updated_at]
   end
+
+  # capture results of player's throw
+  def record_results
+    drawing = Drawing.find_by(week_number: params[:week_number])
+    drawing.record_results(params['winner_id'], params['player_score'], params['strike'].downcase)
+    render json: {winner: drawing}, except: [:password_digest, :created_at, :updated_at]
+  end
 end

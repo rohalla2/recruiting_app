@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150123232558) do
+ActiveRecord::Schema.define(version: 20150126165737) do
 
   create_table "drawings", force: :cascade do |t|
     t.integer  "week_number"
@@ -19,8 +19,9 @@ ActiveRecord::Schema.define(version: 20150123232558) do
     t.integer  "player_score"
     t.boolean  "strike"
     t.float    "payout"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.float    "balance_forward"
   end
 
   add_index "drawings", ["winner_id"], name: "index_drawings_on_winner_id"
