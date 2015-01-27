@@ -2,7 +2,7 @@ class Ticket < ActiveRecord::Base
   belongs_to :player
   belongs_to :drawing, foreign_key: :week_number, primary_key: :week_number
 
-  before_save :validate_player
+  validate :week_available
   before_save :add_price
   validates_presence_of :week_number, :player_id
   
@@ -10,9 +10,15 @@ class Ticket < ActiveRecord::Base
     self.price = 1.00
   end
 
-  def validate_player
-    # Stub
-    # do now allow ticket to be purchased if last week there was no winner
+  def week_available
+    if Drawing.exists?(week_number: self.week_number)
+      d = Drawing.find_by(week_number: self.week_number)
+      if d.winner_id.nil?
+        self.errors.add(:error, 'That week is not open for ticket buying!') # error: can't buy this ticket
+      end
+    else
+        self.errors.add(:error, 'That week is not open for ticket buying!') # error: can't buy this ticket      
+    end
   end
 
   def render_json
