@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150126165737) do
+ActiveRecord::Schema.define(version: 20150128223004) do
 
   create_table "drawings", force: :cascade do |t|
     t.integer  "week_number"
@@ -25,6 +25,15 @@ ActiveRecord::Schema.define(version: 20150126165737) do
   end
 
   add_index "drawings", ["winner_id"], name: "index_drawings_on_winner_id"
+
+  create_table "patches", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "player_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "patches", ["player_id"], name: "index_patches_on_player_id"
 
   create_table "players", force: :cascade do |t|
     t.string   "first_name"

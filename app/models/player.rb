@@ -1,6 +1,7 @@
 class Player < ActiveRecord::Base
   has_secure_password
   has_many :tickets
+  has_many :patches
 
   validates :email, uniqueness: true
   validates_format_of :email,:with => /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
@@ -12,6 +13,7 @@ class Player < ActiveRecord::Base
     json['winnings'] = {}
     json['winnings']['total'] = self.drawings_won.sum(:payout)
     json['winnings']['drawings_won'] = self.drawings_won.as_json(except: [:created_at, :updated_at])
+    json['patches'] = self.patches
     json.to_json
   end
 
@@ -22,6 +24,7 @@ class Player < ActiveRecord::Base
     json['winnings'] = {}
     json['winnings']['total'] = self.drawings_won.sum(:payout)
     json['winnings']['drawings_won'] = self.drawings_won.as_json(except: [:created_at, :updated_at])
+    json['patches'] = self.patches
     json.to_json
   end
 
