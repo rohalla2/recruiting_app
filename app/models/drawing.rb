@@ -39,6 +39,10 @@ class Drawing < ActiveRecord::Base
 
   end
 
+  def render_json
+    self.as_json(except: [:created_at, :updated_at])
+  end
+
   private
     def calculate_current_balance
       if self.week_number > 1

@@ -25,6 +25,28 @@ class DrawingsController < ApplicationController
     render json: json_arr
   end
 
+  # POST /drawings/new
+  def new
+    # week Number
+    d = Drawing.find_by(week_number: params[:week_number])
+
+    if d.nil?
+      prev = Drawing.last
+      if Drawing.count == 0 || (prev.week_number == params[:week_number].to_i - 1 && !prev.balance_forward.nil?)
+        #create
+        draw = Drawing.create(week_number: params[:week_number])
+
+        render json: draw.render_json
+
+      else
+        render json: {error: 'This Drawing cannot be created yet!'}
+      end
+    else
+      render json: {error: 'Drawing already exists for this week!'}
+    end
+
+  end
+
   # GET /drawings/:week_number/players?player_id=[PLAYER_ID]&api_token=[API_TOKEN]
   # Get all players who are in the drawing
   def show

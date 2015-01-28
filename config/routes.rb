@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get '/players/:search_id/tickets/:week_number' => 'tickets#show_player_tickets_by_week'
 
   get '/drawings' => 'drawings#index'
+  post '/drawings/new' => 'drawings#new'
   get '/drawings/:week_number/players' => 'drawings#show'
   post '/drawings/:week_number/select' => 'drawings#select_winner'
   post '/drawings/:week_number/score' => 'drawings#record_results'
