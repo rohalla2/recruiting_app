@@ -17,7 +17,7 @@ class Ticket < ActiveRecord::Base
         self.errors.add(:error, 'That week is not open for ticket buying!') # error: can't buy this ticket
       end
     else
-        self.errors.add(:error, 'That week is not open for ticket buying!') # error: can't buy this ticket      
+      self.errors.add(:error, 'That week is not open for ticket buying!') # error: can't buy this ticket      
     end
   end
 

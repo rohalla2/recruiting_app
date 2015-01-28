@@ -15,13 +15,4 @@ class ApplicationController < ActionController::Base
       end 
     end
 
-    # def authorize
-    #   unless Player.find_by(id: session[:player_id])
-    #     redirect_to root_url, notice: "You need to log in to access this feature!"
-    #   end
-    # end
-
-
-
-
 end

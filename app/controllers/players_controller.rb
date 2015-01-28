@@ -1,24 +1,12 @@
 class PlayersController < ApplicationController
   skip_before_action :find_player_from_token, only: [:create]
 
-  # GET /players
-  # GET /players.json
-  def index
-    @players = Player.all
-  end
-
   # GET /players/1
-  # GET /players/1.json
   def show
-    # render json of player email
-    # Current winnings total
-    # tickets
-    # drawings won
     render json: @player.render_json_public
   end
 
   # POST /players
-  # POST /players.json
   def create
     token = SecureRandom.hex
     player = Player.new(player_params)
