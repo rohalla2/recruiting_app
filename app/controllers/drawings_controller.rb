@@ -1,15 +1,35 @@
 class DrawingsController < ApplicationController
 
+  # GET /drawings
+  def index
+    json_arr = {}
+    json_arr['total_payout'] = Drawing.all.sum(:payout)
+    
+    d = Drawing.last
+    balance = 0
+    if d.balance_forward.nil? # if this week is still open
+      balance = d.tickets.sum(:price)
+      
+      if Drawing.count != 1
+        # balance is last foward + current ticket sales
+        balance += Drawing.where(week_number: d.week_number - 1).first.balance_forward
+      end
+    else # this week closed
+      # balance is last forward
+      balance = d.balance_forward
+    end
+    json_arr['balance'] = balance
+    json_arr['drawings'] = Drawing.all.as_json(except: [:created_at, :updated_at])
+
+    # Current Balance
+    render json: json_arr
+  end
 
   # GET /drawings/:week_number/players?player_id=[PLAYER_ID]&api_token=[API_TOKEN]
   # Get all players who are in the drawing
   def show
-    drawing = Drawing.find_by(week_number: params[:week_number])
-    tickets = drawing.tickets
-    players = []
-    tickets.each do |ticket|
-      players.push ticket.player
-    end
+    player_ids = Ticket.where(week_number: params[:week_number]).uniq.pluck(:player_id)
+    players = Player.find(player_ids)
     render json: {count: players.count, players: players}, except: [:password_digest, :created_at, :updated_at, :api_token] 
   end
 

@@ -7,14 +7,25 @@ class Player < ActiveRecord::Base
 
   def render_json
     json = self.as_json({
-      #:include => { :todos => { :only => :id } },
       :only => [:id, :email, :api_token]
     })
-   # json['todos'] = json['todos'].map { |todo| todo['id'] }
+    json['winnings'] = {}
+    json['winnings']['total'] = self.drawings_won.sum(:payout)
+    json['winnings']['drawings_won'] = self.drawings_won.as_json(except: [:created_at, :updated_at])
+    json.to_json
+  end
+
+  def render_json_public
+    json = self.as_json({
+      :except => [:api_token, :updated_at, :created_at, :password_digest]
+    })
+    json['winnings'] = {}
+    json['winnings']['total'] = self.drawings_won.sum(:payout)
+    json['winnings']['drawings_won'] = self.drawings_won.as_json(except: [:created_at, :updated_at])
     json.to_json
   end
 
   def drawings_won
-    drawings = Drawing.find_by(winner_id: self.id)
+    drawings = Drawing.where(winner_id: self.id)
   end
 end

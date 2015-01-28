@@ -11,6 +11,10 @@ class PlayersController < ApplicationController
   # GET /players/1.json
   def show
     # render json of player email
+    # Current winnings total
+    # tickets
+    # drawings won
+    render json: @player.render_json_public
   end
 
   # POST /players

@@ -48,7 +48,7 @@ class Drawing < ActiveRecord::Base
       this_week = self.tickets.sum(:price)
 
       if !last_week.nil?
-        this_week + last_week
+        this_week + last_week.balance_forward
       else
         this_week
       end

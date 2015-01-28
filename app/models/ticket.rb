@@ -13,7 +13,7 @@ class Ticket < ActiveRecord::Base
   def week_available
     if Drawing.exists?(week_number: self.week_number)
       d = Drawing.find_by(week_number: self.week_number)
-      if d.winner_id.nil?
+      if !d.winner_id.nil?
         self.errors.add(:error, 'That week is not open for ticket buying!') # error: can't buy this ticket
       end
     else
